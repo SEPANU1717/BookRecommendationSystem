@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import base64
 import os
-from streamlit_lottie import st_lottie
-import requests
 from PIL import Image
 import base64
 
