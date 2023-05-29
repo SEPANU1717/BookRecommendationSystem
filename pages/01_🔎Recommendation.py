@@ -13,7 +13,7 @@ def get_img_as_base64(image_path):
         base64_encoded = base64.b64encode(image_data).decode("utf-8")
     return base64_encoded
 
-background_image_path = "image/al.png"
+background_image_path = "image/sip.png"
 image_path = "image/mm.png"
 im = Image.open(image_path)
 
