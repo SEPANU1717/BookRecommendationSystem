@@ -10,6 +10,7 @@ def get_img_as_base64(image_path):
         base64_encoded = base64.b64encode(image_data).decode("utf-8")
     return base64_encoded
 
+
 image_path = "image/mm.png"
 im = Image.open(image_path)
 im2 = Image.open("image/logoside.png")
@@ -17,21 +18,11 @@ st.set_page_config(page_title="BastonedProject", page_icon=im)
 
 
 # Define the tabs
-tab1, tab2, tab3, tab4 = st.tabs(["-", "About Us", "Project Description", "Team Members"])
+tab1, tab2, tab3, = st.tabs(["About Us", "Project Description", "Team Members"])
 
-# Part 1: Tab 1 - Hello
-with tab1:
-    lottie_url = "https://assets8.lottiefiles.com/packages/lf20_0bzu9jvt.json"
-    
-    # Load the Lottie animation
-    response = requests.get(lottie_url)
-    lottie_json = response.json()
-
-    # Render the Lottie animation in Streamlit
-    st_lottie(lottie_json)
 
 # Part 2: Tab 2 - About Us
-with tab2:
+with tab1:
     st.header("About Us")
     st.write("Introducing our cutting-edge programming book recommendation system! Are you bored of searching through innumerable programming books in search of the best suit for your requirements? There is no need to look any further! Based on your preferences and interests, our recommendation engine uses cutting-edge algorithms to select the most relevant and high-quality programming books.")
     st.write("Our technology evaluates your prior book selections, as well as your intended programming languages and areas of specialization, in a matter of seconds to present you with unique recommendations that are tailored directly to you. Whether you're a newbie hoping to learn the fundamentals or an experienced developer looking for advanced information, our system has you covered.")
@@ -39,7 +30,7 @@ with tab2:
     st.write("So, what are you holding out for? Try out our programming book suggestion system today to boost your coding skills!")
 
 # Part 3: Tab 3 - Team Members
-with tab4:
+with tab3:
     st.header("Team Members")
     team_members = [
         {"name": "Manalo, Mark Christianiel", "info": "System Developer, manalo.2566146@balayan.sti.edu.ph"},
@@ -54,7 +45,7 @@ with tab4:
         expander.write(member["info"])
 
 # Part 4: Tab 4 - Project Description
-with tab3:
+with tab2:
     st.header("Project Description")
     st.write("The Book Recommendation System for Programmers is a web application designed to help programmers find books that are relevant to their interests. The system uses a content-based filtering algorithm to recommend books based on user interest.")
     st.write("The system is built using the Python programming language and several libraries such as Streamlit, Pandas, NumPy, and Pillow. The data used in the system is stored in a CSV file, and the similarity matrix is computed using a pre-trained model in a pickle file.")
