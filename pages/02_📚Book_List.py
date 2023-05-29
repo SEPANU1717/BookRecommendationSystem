@@ -13,30 +13,33 @@ def get_img_as_base64(image_path):
         base64_encoded = base64.b64encode(image_data).decode("utf-8")
     return base64_encoded
 
+background_image_path = "image/pj.png"
 image_path = "image/mm.png"
 im = Image.open(image_path)
 im2 = Image.open("image/logoside.png")
 st.set_page_config(page_title="BastonedProject", page_icon=im)
 
-# Define the tabs
-tab1, tab2 = st.tabs(["-", "Book List"])
+background_image = Image.open(background_image_path)
 
-with tab1:
-    # Define the Lottie animation URL
-    lottie_url = "https://assets5.lottiefiles.com/private_files/lf30_gqirhcr7.json"
+page_bg_img = f"""
+    <style>
+    [data-testid="stAppViewContainer"] > .main {{
+        background-image: url("data:image/png;base64,{get_img_as_base64(background_image_path)}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }}
+    </style>
+    """
 
-    # Load the Lottie animation
-    response = requests.get(lottie_url)
-    lottie_json = response.json()
+st.markdown(page_bg_img, unsafe_allow_html=True)
 
-    # Render the Lottie animation in Streamlit
-    st_lottie(lottie_json)
 
-with tab2:
-    st.header("Book List")
+
+st.header("Book List")
     
     # Define function to load CSV files
-    def load_data(folder_path):
+def load_data(folder_path):
         csv_files = [f for f in os.listdir(folder_path) if f.endswith('.csv')]
         data_dict = {}
         for file in csv_files:
@@ -45,12 +48,12 @@ with tab2:
         return data_dict
 
     # Load CSV files and create select box
-    data_dict = load_data('csvfiles')
-    file_name = st.selectbox('Select a Programming language:', list(data_dict.keys()))
-    df = data_dict[file_name]
+data_dict = load_data('csvfiles')
+file_name = st.selectbox('Select a Programming language:', list(data_dict.keys()))
+df = data_dict[file_name]
 
     # Show the selected CSV file
-    if st.button('Show Books'):
+if st.button('Show Books'):
         df['url'] = df['url'].apply(lambda x: f'<a href="{x}" target="_blank">{x}</a>')
         df.index = range(1, len(df) + 1)  # Update the index to start from 1
         st.write(df.to_html(escape=False), unsafe_allow_html=True)
